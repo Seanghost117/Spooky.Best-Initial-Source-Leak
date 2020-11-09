@@ -12,5 +12,13 @@ _**Version At Release:**_ Patch 1.50
 * Events and Protections
 * Maybe? minor sigs
 
+## Don't
+* Use the protections, it's literally just defusing events. It's 2020 get creative.
+* Use the events without updating, them it's not hard. I made a post on UC as well as even updated all those + more.
+* Wonder why your vehicles aren't spawning in the right place, fix vector3 first. Look at BBV2.
+* Re-use and skid this, although it's gonna happen so do what you want.
+* Cause uneeded drama, this is being leaked cause I don't need this around not to destroy it or anything.
+* Spam this or mass spread this, that is annoying...
+
 ### Images
 ![Menu Image](https://media.karousell.com/media/photos/products/2020/7/17/gta_5_spooky_mod_menu_1595000054_187b148d_progressive.jpg)
