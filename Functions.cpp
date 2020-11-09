@@ -33,7 +33,7 @@ namespace Mystic::Functions {
 	{
 	}
 
-	//Volatile
+	//Volatile - meaning it's useless and detected. Don't use it's just here to show their initial stealth.
 	bool netShopBeginService(Any* transactionId, Any a2, int hash, Any a4, int amount, int mode)
 	{
 		if (!NETWORK::NETWORK_IS_SESSION_ACTIVE())
@@ -1163,25 +1163,6 @@ namespace Mystic::Functions {
 	{
 		globalHandle(2437549).At(3880).As<int>() = enable ? NETWORK::GET_NETWORK_TIME() : 0;
 	}
-	void hostilePeds(bool enable, Player player) {
-		Ped nPeds[99];
-		int count;
-		count = PED::GET_PED_NEARBY_PEDS(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(player), nPeds, -1);
-		for (int i = 0; i < count; i++) {
-			if (ENTITY::DOES_ENTITY_EXIST(nPeds[i])) {
-				BRAIN::TASK_COMBAT_PED(nPeds[i], PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(player), 0, 16);
-				PED::SET_PED_CAN_SWITCH_WEAPON(nPeds[i], true);
-			}
-		}
-	}
-	void joinCrew(Player player)
-	{
-		int clanId;
-		int desc;
-		NETWORK::NETWORK_CLAN_PLAYER_GET_DESC(&desc, 35, &clanId);
-		NETWORK::NETWORK_CLAN_JOIN(clanId);
-	}
-
 
 	Hash modelDrop(int ID) {
 		switch (ID) {
@@ -1231,22 +1212,7 @@ namespace Mystic::Functions {
 			}
 		}
 	}
-	int TimeMeasure;
-	void stealthmoney(bool enable, int amount, int Delay)
-	{
-		if (enable) {
-			if ((timeGetTime() - TimeMeasure) > Delay)
-			{
-				globalHandle(4264315).At(1).As<int>() = 2147483646;
-				globalHandle(4264315).At(2).As<int>() = amount;
-				globalHandle(4264315).At(3).As<int>() = -1586170317;
-				globalHandle(4264315).At(5).As<int>() = NULL;
-				globalHandle(4264315).At(6).As<int>() = NULL;
-				globalHandle(4264315).At(7).As<int>() = 2147483647;
-				TimeMeasure = timeGetTime();
-			}
-		}
-	}
+
 	Hash pickUps(int ID) {
 		switch (ID) {
 		case 0: return PickupTypeArmour; break;
@@ -1455,78 +1421,6 @@ namespace Mystic::Functions {
 
 	}
 	
-
-	//vehicle options
-	void spawn_vehicle(Hash toSpawn, Ped player) {
-		globalHandle(2507711).As<bool>() = 1; //1.46 DLC Vehicles Enabler
-		globalHandle(4268190).As<int>() = 1; // MP TO SP Bypass
-
-		Hash model = toSpawn;
-		if (STREAMING::IS_MODEL_VALID(model))
-		{
-			setNetworkedScript([=] {
-				g_CallbackScript->AddCallback<ModelCallback>(model, [model, player] {
-					NativeVector3 ourCoords = ENTITY::GET_ENTITY_COORDS(player, false);
-
-					float forward = 5.f;
-					float heading = ENTITY::GET_ENTITY_HEADING(player);
-					//float xVector = forward * sin(heading * 3.141592653589793f / 180.0f) * -1.0f;
-					//float yVector = forward * cos(heading * 3.141592653589793f / 180.0f);
-					Vehicle veh = VEHICLE::CREATE_VEHICLE(model, ourCoords.x, ourCoords.y , ourCoords.z, heading, *g_GameVariables->m_IsSessionStarted, false);
-					Utils::requestControlEnt(veh);
-					VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh);
-					VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(veh, "Mystic");
-					DECORATOR::DECOR_SET_INT(veh, (char*)"MPBitset", 0);
-					STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
-					if (g_Settings.spawnIn) { if (player == PLAYER::PLAYER_PED_ID()) { PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), veh, -1); } }
-					if (g_Settings.spawnEngineOn) { VEHICLE::SET_VEHICLE_ENGINE_ON(veh, true, true, true); }
-					if (g_Settings.spawnMax) {
-						VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-						for (int i = 0; i < 50; i++)
-						{ VEHICLE::SET_VEHICLE_MOD(veh, i, VEHICLE::GET_NUM_VEHICLE_MODS(veh, i) - 1, false); }
-					}
-					if (g_Settings.spawnClearArea) {
-						MISC::CLEAR_AREA_OF_VEHICLES(ourCoords.x, ourCoords.y, ourCoords.z, 10, false, false, false, false, false, 0);
-						MISC::CLEAR_AREA_OF_OBJECTS(ourCoords.x , ourCoords.y , ourCoords.z, 10, 0);
-					}
-					if (g_Settings.spawnGod) { ENTITY::SET_ENTITY_INVINCIBLE(veh, g_Settings.spawnGod); }
-					});
-				});
-			}
-		else
-		{
-		//PrintBottomLeft((char*)"It appears that the model entered is not a vehicle. Tell Mistyy.");
-		}
-	}
-	void ModelChange(const char* model)
-	{
-	
-			g_Logger->Info("First Step");
-			Hash hash = MISC::GET_HASH_KEY(model);
-			g_Logger->Info("Second Step");
-			if (STREAMING::IS_MODEL_IN_CDIMAGE(hash) && STREAMING::IS_MODEL_VALID(hash))
-			{
-				g_Logger->Info("Third Step");
-				STREAMING::REQUEST_MODEL(hash);
-				g_Logger->Info("Fourth Step");
-				//g_CallbackScript->AddCallback<ModelCallback>(hash, [hash] {
-					while (!STREAMING::HAS_MODEL_LOADED(hash)) g_FiberScript->Wait(0);
-					g_Logger->Info("Fifth Step");
-					PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), hash);
-					g_Logger->Info("Sixth Step");
-					PED::SET_PED_DEFAULT_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID());
-					g_Logger->Info("Seventh Step");
-					g_FiberScript->Wait(100);
-					g_Logger->Info("Eighth Step");
-					STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash);
-					g_Logger->Info("Ninth Step");
-					g_FiberScript->Wait(10);
-					g_Logger->Info("Final Step");
-					//});
-
-			}
-
-	}
 	void spawnVehicle(Ped ped, uint32_t hash, bool isSpawnIn, bool isMax, bool isSpawnVehicleInAir, bool isInvincible) {
 		Hash model = hash;
 		g_FiberScript->addTask([=] {
@@ -1836,63 +1730,7 @@ namespace Mystic::Functions {
 			}
 		}
 	}
-	void driveonwater(bool enable)
-	{
-		if (enable) {
-				Player player = PLAYER::PLAYER_ID();
-				Ped playerPed = PLAYER::PLAYER_PED_ID();
-				Vehicle veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-				DWORD model = ENTITY::GET_ENTITY_MODEL(veh);
-				NativeVector3 pos = ENTITY::GET_ENTITY_COORDS(playerPed, 0);
-				float height = 0;
-				WATER::_SET_WAVES_INTENSITY(height);
-				if ((!(VEHICLE::IS_THIS_MODEL_A_PLANE(ENTITY::GET_ENTITY_MODEL(veh)))) && WATER::GET_WATER_HEIGHT_NO_WAVES(pos.x, pos.y, pos.z, &height)) {
-					Object container = OBJECT::GET_CLOSEST_OBJECT_OF_TYPE(pos.x, pos.y, pos.z, 4.0, $("prop_container_ld2"), 0, 0, 1);
-					if (ENTITY::DOES_ENTITY_EXIST(container) && height > -50.0f) {
-						NativeVector3 pRot = ENTITY::GET_ENTITY_ROTATION(playerPed, 0);
-						if (PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) pRot = ENTITY::GET_ENTITY_ROTATION(veh, 0);
-						Utils::requestControlEnt(container);
-						ENTITY::SET_ENTITY_COORDS(container, pos, height - 1.5f, 0, 0, 0);
-						ENTITY::SET_ENTITY_ROTATION(container, 0, 0, pRot.z, 0, 1);
-						NativeVector3 containerCoords = ENTITY::GET_ENTITY_COORDS(container, 1);
-						if (pos.z < containerCoords.z) {
-							if (!PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0)) {
-								ENTITY::SET_ENTITY_COORDS(playerPed, pos, containerCoords.z + 2.0f, 0, 0, 0);
-							}
-							else {
-								Utils::requestControlEnt(veh);
-								NativeVector3 vehc = ENTITY::GET_ENTITY_COORDS(veh, 1);
-								ENTITY::SET_ENTITY_COORDS(veh, vehc, containerCoords.z + 2.0f, 0, 0, 0);
-							}
-						}
-					}
-					else {
-						Hash model = $("prop_container_ld2");
-						STREAMING::REQUEST_MODEL(model);
-						while (!STREAMING::HAS_MODEL_LOADED(model)) g_FiberScript->Wait(0);
-						container = OBJECT::CREATE_OBJECT(model, pos.x, pos.y, pos.z, 1, 1, 0);
-						Utils::requestControlEnt(container);
-						ENTITY::FREEZE_ENTITY_POSITION(container, 1);
-						ENTITY::SET_ENTITY_ALPHA(container, 0, 1);
-						ENTITY::SET_ENTITY_VISIBLE(container, 0, 0);
-					}
-				}
-			
-		}
-		else {
-			NativeVector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 0);
-			NativeVector3 null = { 0, 0, 0 };
-			Object container = OBJECT::GET_CLOSEST_OBJECT_OF_TYPE(pos.x, pos.y, pos.z, 4.0, $("prop_container_ld2"), 0, 0, 1);
-			if (ENTITY::DOES_ENTITY_EXIST(container)) {
-				Utils::requestControlEnt(container);
-				ENTITY::SET_ENTITY_COORDS(container, null, 0, -1000.0f, 0, 0);
-				g_FiberScript->Wait(10);
-				ENTITY::SET_ENTITY_AS_NO_LONGER_NEEDED(&container);
-				ENTITY::DELETE_ENTITY(&container);
-				WATER::_RESET_WAVES_INTENSITY(); //_RESET_WAVES_INTENSITY();
-			}
-		}
-	}
+
 	void drift(bool enable)
 	{
 		if (enable)
@@ -1996,7 +1834,7 @@ namespace Mystic::Functions {
 		WEAPON::GET_CURRENT_PED_WEAPON(PLAYER::PLAYER_PED_ID(), &weaponhash, true);
 		WEAPON::SET_WEAPON_OBJECT_TINT_INDEX(weaponhash, weaponID);
 	}
-	void aimbot(bool enable) //should work
+	void aimbot(bool enable) //it just shoots at coord, not a real aimbot
 	{
 		if (enable)
 		{
@@ -2337,7 +2175,7 @@ namespace Mystic::Functions {
 			}
 		}
 	}
-	void triggerBot(bool enable)
+	void triggerBot(bool enable) //powerful at least
 	{
 		if (enable)
 		{
