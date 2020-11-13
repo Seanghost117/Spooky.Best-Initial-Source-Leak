@@ -41,8 +41,14 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
    ![The Protections](https://i.imgur.com/3d4r4D2.png)
 </details>
 
+## Some Updates/Tweaks
+* Updated crossmaps
+* Updated some offsets like for swim speed
+* Updated some TSE hashes since they just remove the whole thing instead (remote tp, send to mission, some kicks) (can do more if you open a request)
+* Updated Instant BST, Spoof Level, Spook Kills, Spoof Money, etc.
+* Included commented code that would be better to use than the current code for some features (can do more if you open a request)
+
 ## What May Need Updated?
-* Crossmaps
 * Reclass structs
 * Events and Protections
 * Maybe? minor sigs
