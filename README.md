@@ -41,6 +41,13 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
    ![The Protections](https://i.imgur.com/3d4r4D2.png)
 </details>
 
+> By the way for those who don't know, yes original Spooki was cracked, and yes the dev disappeared, and yes there was a alrge monetary exchange by the original owners to get a working version out. A redone version was made off the big base source. No I can not be attributed to the code or most of it, If I'm being honest most was simply prior hand work, scraps of a former project that included myself and several others but was a cluster fuck and never worked out. The remake was then given to the current owners and thus you have Spooky.best. If you want to know then yes they also paid $130 for a 20 second fix which they also knew was indeed a 20 second fix. 
+<details> 
+  <summary>Images</summary>
+  
+   ![Originally](https://i.imgur.com/7lq4gsN.png)
+</details>
+
 ## Some Updates/Tweaks
 * Updated crossmaps
 * Updated some offsets like for swim speed
