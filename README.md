@@ -22,18 +22,21 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
   <summary>Images</summary>
    ![The Money](https://i.imgur.com/EkuQCVM.png)
 </details>
+
 > Finding developers and paying for the code to keep pushing updates
 <details> 
   <summary>Images</summary>
    ![The Dev](https://i.imgur.com/JBZxzA7.png)
    ![Future](https://i.imgur.com/wIwhyUj.png)
 </details>
+
 > Re-use of current code in the menu, you can literally just control + F to find half this shit, but to them it's unique and self coded
 <details> 
   <summary>Images</summary>
    ![Better](https://i.imgur.com/Lx3vL1P.png)
    ![The Protections](https://i.imgur.com/3d4r4D2.png)
 </details>
+
 ## What May Need Updated?
 * Crossmaps
 * Reclass structs
