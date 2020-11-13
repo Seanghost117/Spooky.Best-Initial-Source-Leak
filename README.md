@@ -12,6 +12,7 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
 > Paying an "experienced reverse engineer"
 <details> 
   <summary>Images </summary>
+  
    ![The Price](https://cdn.discordapp.com/attachments/699232650359078952/732415616253952120/unknown.png)
    ![Repair Code](https://i.imgur.com/7kFpUs7.png)
    ![Paid](https://i.imgur.com/VypPFyg.png)
@@ -20,12 +21,14 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
 > Asking for people to invest in the menu and not even thinking or planning a way to pay them back because "he is doing it for fun and punk is too broke"
 <details> 
   <summary>Images</summary>
+  
    ![The Money](https://i.imgur.com/EkuQCVM.png)
 </details>
 
 > Finding developers and paying for the code to keep pushing updates
 <details> 
   <summary>Images</summary>
+  
    ![The Dev](https://i.imgur.com/JBZxzA7.png)
    ![Future](https://i.imgur.com/wIwhyUj.png)
 </details>
@@ -33,6 +36,7 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
 > Re-use of current code in the menu, you can literally just control + F to find half this shit, but to them it's unique and self coded
 <details> 
   <summary>Images</summary>
+  
    ![Better](https://i.imgur.com/Lx3vL1P.png)
    ![The Protections](https://i.imgur.com/3d4r4D2.png)
 </details>
