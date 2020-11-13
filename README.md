@@ -16,6 +16,7 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
    ![Repair Code](https://i.imgur.com/7kFpUs7.png)
    ![Paid](https://i.imgur.com/VypPFyg.png)
 </details>
+
 > Asking for people to invest in the menu and not even thinking or planning a way to pay them back because "he is doing it for fun and punk is too broke"
 <details> 
   <summary>Images</summary>
