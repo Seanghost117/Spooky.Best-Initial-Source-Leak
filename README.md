@@ -9,6 +9,16 @@ _**Version At Release:**_ Patch 1.50
 ## Controversy
 Keep in mind this section wasn't supposed to be here. This was merely a stripped down release, why? Because the person who cared didn't seem to care if it was spread around, most of this stuff you can find, out of consideration I removed a lot and made some stuff re-useable. If you want I can add some of that back as well as fix things, improve and expand on some items. The owners or whatever made it quite clear that they are more insterested in useless squander. To add to this, I thought it was funny that apparently I buy clothes and onlyfans subs without having ever been on onlyfans or having a real sense of fashion but if that me then I must be a fucking Chad, I love the compliment. And as well as the "trust" portion, obviously we were diddly and cool if he wanted "my" source as well as my continued help (nice meme trip). And as well as better hands, under RS it sold pretty well, now with all the small resellers there is barely any it's just a bunch of old users (yes I get my information from actual staff members). Finally Trip be my guest and go to college and get a real job like the rest of us, then you wouldn't need to milk a GTA cheat. Here is some shit, peace.
 
+Edit: Seems they aren't gonna let it go, you had Mack come talk to me as well as others instead of talking to me yourself. You are aware that instead of making posts calling me "Seanfag" if you would have dm'd this morning it would have been privated or removed...Seems you just like the drama I guess. Anyways funny you think people care what anyone spends money on, cool your right with the money I've made across the cheat scene I have bought things with it sure. I've paid for college, bought a car, treated friends and family out to eat and shopping, hell I've even donated, but who honestly cares lol. Keep thinking that's going to leave a sore spot in my upper arm. Anyways back on focus, I've edited it with info about Spooky buying code as well as trying to paste quantum shit as well as other meme quality shit. And for the record no this isn't supposed to make you look bad or hurt you, we all know you don't code or else why would you need to pay a dev, the point is you just paid an expensive dev that has no game cheat experience now look at you. I'm a scammer yet like I told you, you paid $3,000 for a glorified theme and a bunch of commenting...nice one. And stop with the scammer bs, my recovery site, I got the offer, the code you paid for you did it willingly as you did with others. I don't exit cheats nor have I ever "scammed", but please bring me actual proof that is better than claiming I left a backdoor which I had already explained was left for me when I took over ;)
+
+> Buying code, just some proof of them buying code as well as trying to buy fixed quantum code including crashes, protections, etc. Remember trip "it's all about the protections"
+<details> 
+  <summary>Images </summary>
+  
+   ![Buy This](https://cdn.discordapp.com/attachments/776879122714198049/776879521399701504/unknown.png)
+   ![Quantum](https://cdn.discordapp.com/attachments/776879122714198049/776906372654301194/unknown.png)
+</details>
+
 > Paying an "experienced reverse engineer"
 <details> 
   <summary>Images </summary>
@@ -39,6 +49,16 @@ Keep in mind this section wasn't supposed to be here. This was merely a stripped
   
    ![Better](https://i.imgur.com/Lx3vL1P.png)
    ![The Protections](https://i.imgur.com/3d4r4D2.png)
+</details>
+
+> Tripzzie it's rude to talk about other's work, even skids attempt to learn something here or there, plus pasting from Zap? Lol. And even better you send me some quantum code to help you fix and claim that you made it, please stop. Funny how people can do complete 180s, keep acting childish...
+<details> 
+  <summary>Images</summary>
+  
+   ![Quantum](https://i.imgur.com/rsWIVAf.png)
+   ![Crash](https://i.imgur.com/yrOcBnW.png)
+   ![Zap](https://i.imgur.com/IzXISxL.png)
+   ![Even better](https://i.imgur.com/Gbvew5q.png)
 </details>
 
 > By the way for those who don't know, yes original Spooki was cracked, and yes the dev disappeared, and yes there was a large monetary exchange by the original owners to get a working version out. A redone version was made off the big base source. No I can not be attributed to the code or most of it, If I'm being honest most was simply prior hand work, scraps of a former project that included myself and several others but was a cluster fuck and never worked out. The remake was then given to the current owners and thus you have Spooky.best. If you want to know then yes they also paid $130 for a 20 second fix which they also knew was indeed a 20 second fix. 
