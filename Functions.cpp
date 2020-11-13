@@ -422,7 +422,11 @@ namespace Mystic::Functions {
 	{
 		ENTITY::SET_ENTITY_INVINCIBLE(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(PLAYER::PLAYER_ID()), enable);
 	}
-
+	
+	/*A better way of doing this would be this:
+	if (enable)
+		pedFactory->local_ped->m_playerinfo->m_WantedLevel = 0;
+	*/
 	void setNeverWanted(bool enable)
 	{
 		if (enable)
@@ -452,44 +456,43 @@ namespace Mystic::Functions {
 	}
 	void setSuperJump(bool enable)
 	{
+		/*Again a better way of doing this would be:
+		int64_t flags |= 0 << 14; 
+		enable ? (flags |= 1 << 14) : NULL;
+		if(enable)
+			pedFactory->local_ped->m_player_info->m_frame_flags = flags;
+		*/
 		if (enable)
 		{
-			Player playerPed = PLAYER::PLAYER_PED_ID();
 			MISC::SET_SUPER_JUMP_THIS_FRAME(PLAYER::PLAYER_ID());
-			MISC::SET_SUPER_JUMP_THIS_FRAME(playerPed);
+			MISC::SET_SUPER_JUMP_THIS_FRAME(PLAYER::PLAYER_PED_ID());
 		}
 	}
 	void ragdoll(bool enable) {
 		if (enable) {
-			PED::SET_PED_RAGDOLL_ON_COLLISION(PLAYER::PLAYER_PED_ID(), false);
 			PED::SET_PED_CAN_RAGDOLL_FROM_PLAYER_IMPACT(PLAYER::PLAYER_PED_ID(), false);
 			PED::SET_PED_CAN_RAGDOLL(PLAYER::PLAYER_PED_ID(), false);
-		}
-		else {
-			//PED::SET_PED_RAGDOLL_ON_COLLISION(PLAYER::PLAYER_PED_ID(), true);
-			PED::SET_PED_CAN_RAGDOLL_FROM_PLAYER_IMPACT(PLAYER::PLAYER_PED_ID(), true);
-			PED::SET_PED_CAN_RAGDOLL(PLAYER::PLAYER_PED_ID(), true);
 		}
 	}
 
 	void rainbowhaircolor(bool enable) {
 		if (enable) {
-			for (int i = 0; i < 63; i++) {
+			for (int i = 0; i < 63; i++) { //64 hair colors
 				PED::_SET_PED_HAIR_COLOR(PLAYER::PLAYER_PED_ID(), i, 0);
 			}
 		}
 	}
 
-	void setPedHairColor(int HairID) {
+	void setPedHairColor(int HairID) { //sets the selected hair color with the int of the ID as the param
 		PED::_SET_PED_HAIR_COLOR(PLAYER::PLAYER_PED_ID(), HairID, 0);
 	}
 
 	void setSuperSwim(bool enable) {
-		if (enable) {
-			Memory::set_value<float>({ 0x8, 0x10B8, 0x0148 }, 2.5f);
+		if (enable) { //updated offsets as of patch 1.52
+			Memory::set_value<float>({ 0x8, 0x10C8, 0x0150 }, 2.5f);
 		}
 		else {
-			Memory::set_value<float>({ 0x8, 0x10B8, 0x0148 }, 1.0f);
+			Memory::set_value<float>({ 0x8, 0x10C8, 0x0150 }, 1.0f);
 		}
 	}
 	void mobileRadio(bool enable) {
@@ -604,8 +607,6 @@ namespace Mystic::Functions {
 		if (enable) {
 			Player playerPed = PLAYER::PLAYER_PED_ID();
 			NativeVector3 pCoords = ENTITY::GET_ENTITY_COORDS(playerPed, 0);
-			//FIRE::ADD_EXPLOSION(pCoords.x + 2, pCoords.y + 2, pCoords.z, 7, 9.0f, false, true, 0.0f, 1);
-			//FIRE::ADD_EXPLOSION(pCoords.x + 3, pCoords.y + 3, pCoords.z, 7, 9.0f, false, true, 0.0f, 1);
 			FIRE::ADD_EXPLOSION(pCoords.x + 4, pCoords.y + 4, pCoords.z, 7, 9.0f, false, true, 0.0f, 1);
 			FIRE::ADD_EXPLOSION(pCoords.x + 5, pCoords.y + 5, pCoords.z, 7, 9.0f, false, true, 0.0f, 1);
 			FIRE::ADD_EXPLOSION(pCoords.x + 6, pCoords.y + 6, pCoords.z, 7, 9.0f, false, true, 0.0f, 1);
@@ -815,16 +816,8 @@ namespace Mystic::Functions {
 
 	void kick_to_new_lobby()
 	{
-		Hash kickHashes[] = { -1246838892, 1667907776, 297770348, 498709856, -1539546643, 0xE051FFE5, -333038531, -1153009121, -867805069, 1046017888, -1998642710,
-			106447194, 519946261, 163985506, 873197495, -906869562, 741569622, -1434746202, 797746128, 1658079306, 290191363,
-			615831251, -1926987112, 1404046700, -612288019, -1441300790, -1290756689, -370669082, 1780075204, -632266118,
-			426145626, -814250534, -1010395481, 925877602, -1179957982, 900146065, 498709856, -1297785021, 143196100, -1818550779,
-			2037380969, 1070706073, -1933245257, 380850754, -1924332863, 709335341, -1704719905, 709335341, 1152017566, 930233414,
-			297770348, 498709856, -452918768, -1246838892, -332594529, -123645928, 1209128713, 1800294560, 1476326089, -771910813,
-			-803645682, 1062544784, -531496987, 400031869, -1424895288, 20218675039, -498955166, -815817885, 1953937033, -1941292498,
-			-941739545, 149365611, 693546501, -1462751325
-
-		};
+		//you have to update these hashes, I made a UC post with how or the new ones, I've included 5. Of course there are a bunch more. Good luck!
+		Hash kickHashes[] = { 445517202,1596062890,1979460190,1770262894,884092977 };
 		for (int i = 0; i < 74; i++) {
 			uint64_t kick[4] = { kickHashes[i],  g_SelectedPlayer, 0, 0 }; 
 			g_GameFunctions->m_TriggerScriptEvent(1, kick, 4, 1 << g_SelectedPlayer);
@@ -984,28 +977,8 @@ namespace Mystic::Functions {
 			}
 		}
 	}
-	Object* Crashobjects;
-	void instantCrash() {
-		
-		Player toCrash = PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_SelectedPlayer);
-		NativeVector3 playerPosition = coordsOf(toCrash);
-		NativeVector3 safeCoords = { 1741.4960f, 3269.2570f, 41.6014f };
-		Hash modelHashes[32] = { 0x9CF21E0F, 0x4F2526DA,
-			0x34315488, 0x6A27FEB1, 0xCB2ACC8, 0xC6899CDE, 0xD14B5BA3,
-			0xD9F4474C, 0x32A9996C, 0x69D4F974, 0xCAFC1EC3,0x79B41171, 
-			0x1075651, 0xC07792D4, 0x781E451D,0x762657C6, 0xC2E75A21,
-			0xC3C00861, 0x81FB3FF0, 0x45EF7804, 0xE65EC0E4, 0xE764D794, 
-			0xFBF7D21F, 0xE1AEB708, 0xA5E3D471, 0xD971BBAE, 0xCF7A9A9D,
-			0xC2CC99D8, 0x8FB233A4, 0x24E08E1F, 0x337B2B54, 0xB9402F87
-		};
-		tpToDestination(PLAYER::PLAYER_PED_ID(), safeCoords);
-		for (int i = 0; i < 32; i++) {
-			Crashobjects[i] = OBJECT::CREATE_OBJECT(modelHashes[i], playerPosition.x, playerPosition.y, playerPosition.z, 1, 1, 1);
-		}
-		for (int j = 0; j < 31; j++) {
-			OBJECT::DELETE_OBJECT(Crashobjects);
-		}
-	}
+	//Volatile way of crashing
+	
 	void attachObjToPlayer(char* object)
 	{
 
@@ -1041,12 +1014,12 @@ namespace Mystic::Functions {
 	}
 	void send_to_mission()
 	{
-		uint64_t mission[2] = { -348418057, PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_SelectedPlayer) };
+		uint64_t mission[2] = { 1764541627, PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_SelectedPlayer) };
 		g_GameFunctions->m_TriggerScriptEvent(1, mission, 2, 1 << g_SelectedPlayer);
 	}
 	void remoteTP()
 	{
-		DWORD64 args[9] = { -125347541, g_SelectedPlayer, 1, -1, 1, Lists::remoteTPID[Lists::remoteTPDestination], 0,0,0 }; //Arcadius Office
+		DWORD64 args[9] = { -1253256204, g_SelectedPlayer, 1, -1, 1, Lists::remoteTPID[Lists::remoteTPDestination], 0,0,0 }; //Arcadius Office
 		SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 9, 1 << g_SelectedPlayer);
 	}
 	void soundSpam(bool enable, int player, int sound)
@@ -1054,7 +1027,7 @@ namespace Mystic::Functions {
 		if (enable)
 		{
 
-			uint64_t sound_spam[3] = { 552065831, player, sound };
+			uint64_t sound_spam[3] = { 1337731455, player, sound };
 			g_GameFunctions->m_TriggerScriptEvent(1, sound_spam, 3, 1 << player);
 
 		}
@@ -1161,7 +1134,7 @@ namespace Mystic::Functions {
 	}
 	void bullSharkTestosterone(bool enable)
 	{
-		globalHandle(2437549).At(3880).As<int>() = enable ? NETWORK::GET_NETWORK_TIME() : 0;
+		globalHandle(2537071).At(3880).As<int>() = enable ? NETWORK::GET_NETWORK_TIME() : 0;
 	}
 
 	Hash modelDrop(int ID) {
@@ -1383,7 +1356,7 @@ namespace Mystic::Functions {
 	void spoofLevel(bool enable)
 	{
 		if (enable) {
-			globalHandle(1590446).At(PLAYER::PLAYER_ID(), 871).At(211).At(6).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 8000);
+			globalHandle(1590535).At(PLAYER::PLAYER_ID(), 876).At(211).At(6).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 8000);
 		}
 	}
 
@@ -1391,7 +1364,7 @@ namespace Mystic::Functions {
 	{
 		if (enable)
 		{
-			globalHandle(1590446).At(PLAYER::PLAYER_ID(), 871).At(211).At(28).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 8000);
+			globalHandle(1590535).At(PLAYER::PLAYER_ID(), 876).At(211).At(28).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 8000);
 		}
 		
 	}
@@ -1399,7 +1372,7 @@ namespace Mystic::Functions {
 	void spoofWalletMoney(bool enable)
 	{
 		if (enable) {
-			globalHandle(1590446).At(PLAYER::PLAYER_ID(), 871).At(211).At(3).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 2147000000);
+			globalHandle(1590535).At(PLAYER::PLAYER_ID(), 876).At(211).At(3).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 2147000000);
 		}
 	}
 
@@ -1407,7 +1380,7 @@ namespace Mystic::Functions {
 	{
 		if (enable)
 		{
-			globalHandle(1590446).At(PLAYER::PLAYER_ID(), 871).At(211).At(56).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 2147000000);
+			globalHandle(1590535).At(PLAYER::PLAYER_ID(), 876).At(211).At(56).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 2147000000);
 		}
 
 	}
@@ -1416,7 +1389,7 @@ namespace Mystic::Functions {
 	{
 		if (enable)
 		{
-			globalHandle(1590446).At(PLAYER::PLAYER_ID(), 871).At(211).At(26).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 99);
+			globalHandle(1590535).At(PLAYER::PLAYER_ID(), 876).At(211).At(26).As<int>() = MISC::GET_RANDOM_INT_IN_RANGE(0, 99);
 		}
 
 	}
@@ -2208,27 +2181,7 @@ namespace Mystic::Functions {
 				}
 		}
 	}
-	void pedSwapGun(bool enable)
-	{
-		if (enable)
-		{
-			Entity EntityTarget;
-			if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(PLAYER::PLAYER_ID(), &EntityTarget) && GetAsyncKeyState(VK_LBUTTON)) {
-				if (ENTITY::IS_ENTITY_A_PED(EntityTarget)) {
-					Hash model = ENTITY::GET_ENTITY_MODEL(EntityTarget);
-					g_CallbackScript->AddCallback<ModelCallback>((model), [=] {
-						if (STREAMING::IS_MODEL_VALID(model)) {
-							STREAMING::REQUEST_MODEL(model);
-							while (!STREAMING::HAS_MODEL_LOADED(model)) g_FiberScript->Wait(0);
-							PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), model);
-							PED::SET_PED_DEFAULT_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID());
-							STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
-						}
-					});
-				}
-			}
-		}
-	}
+	//ped gun is volatile
 
 	void dildoKnife()
 	{
@@ -2647,11 +2600,7 @@ namespace Mystic::Functions {
 		});
 	}
 	//protection options
-	/*void ScriptedGameEventTest(bool enable) {
-		if (enable) {
-			g_GameFunctions->m_ScriptedGameEvent();
-		}
-	}*/
+	
 	void antiKick(bool enable)
 	{
 		if (enable) {
